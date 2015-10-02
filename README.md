@@ -23,6 +23,9 @@ Flux-React-Example is an example contact web application. Serves as a reference 
 ## Docs
 Additional documentation can be found in this project's [wiki](https://github.com/localnerve/flux-react-example/wiki). This is still in progress.
 
+## Progressive Work
+Continued progress on this project toward a Progressive Application (includes a Manifest and Service Worker *offline*, *push notifications*, and *background sync*) exists at [flux-react-example-sw](https://github.com/localnerve/flux-react-example-sw).
+
 ## Integrations
 This example demonstrates a full CI/CD integration on the master branch. Pushes to the master branch run the following workflow:
   1. Run unit tests w/coverage on Travis-ci.
