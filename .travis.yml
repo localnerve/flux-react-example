@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- '0.12'
+- '4.1'
 env:
   global:
   - secure: NcG3pl3uhwuhfni18QpywTHZ2pZ1dxTCSpSDNlfkdYAKKjKrocWh5vuf+HmZzT4r0XuHb4cN8/cvXTn5J4+e+NtcEP7QkN1YCbqU0towoU/KvDZEr0cW8nanbQctUEc9Fe1X9WJd/f5k0T2oXxJ5DAqnLmSJH+t8I5qijM1pQ7k=
@@ -27,7 +27,7 @@ deploy:
   skip_cleanup: true
   on:
     repo: localnerve/flux-react-example
-    node: 0.12
+    node: 4.1
 after_deploy:
 - npm install -g mocha
 - npm install

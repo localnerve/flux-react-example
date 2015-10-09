@@ -50,6 +50,18 @@ function FRED_MEDIATYPE () {
 }
 
 /**
+ * Get the FRED_CONTENTENCODING configuration value.
+ * This is the content encoding of the media type.
+ * Defaults to the current GH content encoding.
+ * This value is consumed by a NodeJS Buffer.
+ * @see https://developer.github.com/v3/repos/contents/
+ * @see https://nodejs.org/api/buffer.html#buffer_new_buffer_str_encoding
+ */
+function FRED_CONTENTENCODING () {
+  return process.env.FRED_CONTENTENCODING || 'base64';
+}
+
+/**
  * Get the FRED_BRANCH configuration value.
  * This is the FRED service version. Different GH branch
  *   can give a totally different resposne structure.
@@ -98,6 +110,13 @@ function makeConfig (nconf) {
        */
       mediaType: function () {
         return FRED_MEDIATYPE();
+      },
+
+      /**
+       * @see FRED_CONTENTENCODING
+       */
+      contentEncoding: function () {
+        return FRED_CONTENTENCODING();
       },
 
       /**
