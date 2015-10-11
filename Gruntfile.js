@@ -325,8 +325,8 @@ module.exports = function (grunt) {
           // Optional, use to see the prod module representation in devtools
           new webpack.optimize.DedupePlugin(),
           new webpack.optimize.OccurenceOrderPlugin(),
-
-          new webpack.NormalModuleReplacementPlugin(/^react(\/addons)?$/, require.resolve('react/addons')),
+          // Just one react
+          new webpack.NormalModuleReplacementPlugin(/^react\-?$/, require.resolve('react')),
           function () {
             return webpackStatsPlugin(this);
           }
@@ -366,9 +366,8 @@ module.exports = function (grunt) {
           // These are performance optimizations for your bundles
           new webpack.optimize.DedupePlugin(),
           new webpack.optimize.OccurenceOrderPlugin(),
-
-          // This ensures requires for `react` and `react/addons` normalize to the same requirement
-          new webpack.NormalModuleReplacementPlugin(/^react(\/addons)?$/, require.resolve('react/addons')),
+          // Just one react
+          new webpack.NormalModuleReplacementPlugin(/^react\-?$/, require.resolve('react')),
 
           new webpack.optimize.UglifyJsPlugin({
             compress: {
@@ -414,7 +413,8 @@ module.exports = function (grunt) {
           }),
           new webpack.optimize.DedupePlugin(),
           new webpack.optimize.OccurenceOrderPlugin(),
-          new webpack.NormalModuleReplacementPlugin(/^react(\/addons)?$/, require.resolve('react/addons')),
+          // Just one react
+          new webpack.NormalModuleReplacementPlugin(/^react\-?$/, require.resolve('react')),
           function () {
             return webpackStatsPlugin(this);
           }

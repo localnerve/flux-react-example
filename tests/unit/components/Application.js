@@ -19,7 +19,7 @@ describe('application component', function () {
   var createMockComponentContext,
       ApplicationStore, ContentStore, RouteStore, ContactStore, BackgroundStore,
       serviceData, routesResponse, fluxibleRoutes, fluxibleApp,
-      React, ReactAddons, testUtils,
+      React, testUtils,
       routes;
 
   before(function () {
@@ -38,9 +38,7 @@ describe('application component', function () {
     fluxibleRoutes = jsonToFluxible(routesResponse);
     fluxibleApp = require('../../../app');
     React = require('react');
-    ReactAddons = require('react/addons');
-
-    testUtils = ReactAddons.addons.TestUtils;
+    testUtils = require('react-addons-test-utils');
 
     routes = {
       home: objectAssign({}, fluxibleRoutes.home, {
@@ -121,7 +119,7 @@ describe('application component', function () {
       var components = testUtils.scryRenderedDOMComponentsWithClass(app, 'page-content');
 
       // 'Home' comes from service-data, not the real doc
-      expect(components[0].getDOMNode().textContent).to.match(/Home/i);
+      expect(components[0].textContent).to.match(/Home/i);
     });
 
     it('should render home navigation', function () {
@@ -130,7 +128,7 @@ describe('application component', function () {
       // throws if not exactly 1
       var component = testUtils.findRenderedDOMComponentWithClass(app, 'selected');
 
-      expect(component.getDOMNode().textContent).to.match(/Home/i);
+      expect(component.textContent).to.match(/Home/i);
     });
   });
 });

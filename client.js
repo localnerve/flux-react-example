@@ -9,11 +9,11 @@
 
 var debugLib = require('debug');
 var debug = debugLib('Example:Client');
-var React = require('react');
+var ReactDOM = require('react-dom');
 var createElementWithContext = require('fluxible-addons-react').createElementWithContext;
 
 if (DEBUG) {
-  window.React = React; // for chrome dev tool support
+  window.React = require('react'); // for chrome dev tool support
   debugLib.enable('*'); // show debug trail
 }
 
@@ -26,10 +26,12 @@ app.rehydrate(dehydratedState, function (err, context) {
     throw err;
   }
 
-  window.context = context;
+  if (DEBUG) {
+    window.context = context;
+  }
 
   debug('rendering app');
-  React.render(
+  ReactDOM.render(
     createElementWithContext(context, {
       analytics: dehydratedState.analytics
     }),
