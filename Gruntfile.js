@@ -327,6 +327,8 @@ module.exports = function (grunt) {
           new webpack.optimize.OccurenceOrderPlugin(),
           // Just one react
           new webpack.NormalModuleReplacementPlugin(/^react\-?$/, require.resolve('react')),
+          // No react server
+          new webpack.NormalModuleReplacementPlugin(/ReactDOMServer/, require.resolve('./utils/serverStub')),
           function () {
             return webpackStatsPlugin(this);
           }
@@ -368,7 +370,8 @@ module.exports = function (grunt) {
           new webpack.optimize.OccurenceOrderPlugin(),
           // Just one react
           new webpack.NormalModuleReplacementPlugin(/^react\-?$/, require.resolve('react')),
-
+          // No react server
+          new webpack.NormalModuleReplacementPlugin(/ReactDOMServer/, require.resolve('./utils/serverStub')),
           new webpack.optimize.UglifyJsPlugin({
             compress: {
               warnings: false
@@ -415,6 +418,8 @@ module.exports = function (grunt) {
           new webpack.optimize.OccurenceOrderPlugin(),
           // Just one react
           new webpack.NormalModuleReplacementPlugin(/^react\-?$/, require.resolve('react')),
+          // No react server
+          new webpack.NormalModuleReplacementPlugin(/ReactDOMServer/, require.resolve('./utils/serverStub')),
           function () {
             return webpackStatsPlugin(this);
           }
