@@ -1,6 +1,6 @@
 {
   "name": "flux-react-example",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "An isomorphic flux-react example application",
   "main": "./server",
   "scripts": {
@@ -96,6 +96,7 @@
     "cookie-parser": "^1.4.0",
     "csurf": "^1.8.3",
     "debug": "^2.2.0",
+    "es6-promise": "^3.0.2",
     "express": "^4.13.3",
     "express-error-handler": "git://github.com/localnerve/express-error-handler",
     "fluxible": "^1.0.0",
@@ -109,8 +110,8 @@
     "node-jsx": "^0.13.3",
     "nodemailer": "^1.5.0",
     "react": "^0.14.x",
-    "react-dom": "^0.14.x",
     "react-addons-css-transition-group": "^0.14.0",
+    "react-dom": "^0.14.x",
     "react-spinner": "git://github.com/localnerve/react-spinner",
     "react-swipe": "git://github.com/localnerve/react-swipe",
     "remarkable": "^1.6.0",
