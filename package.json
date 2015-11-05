@@ -1,6 +1,6 @@
 {
   "name": "flux-react-example",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "An isomorphic flux-react example application",
   "main": "./server",
   "scripts": {
@@ -41,8 +41,8 @@
     "url": "https://github.com/localnerve/flux-react-example/issues"
   },
   "engines": {
-    "node": "~4.1.2",
-    "npm": "~2.14.4"
+    "node": "~4.2.2",
+    "npm": "~2.14.7"
   },
   "homepage": "https://github.com/localnerve/flux-react-example",
   "devDependencies": {
@@ -69,10 +69,10 @@
     "grunt-svgmin": "^2.0.1",
     "grunt-webpack": "^1.0.8",
     "immutable": "^3.7.4",
-    "istanbul": "^0.3.7",
+    "istanbul": "^0.4.0",
     "jscs": "^2.0.0",
     "jscs-jsdoc": "^1.1.0",
-    "jsdom": "~6.5.1",
+    "jsdom": "~7.0.2",
     "jshint": "^2.6.3",
     "jsx-loader": "^0.13.1",
     "matchdep": "^1.0.0",
@@ -83,7 +83,7 @@
     "q": "^1.4.1",
     "react-addons-test-utils": "^0.14.0",
     "svgo": "0.5.0",
-    "wd": "^0.3.11",
+    "wd": "0.3.12",
     "webpack": "^1.7.3",
     "webpack-dev-server": "^1.7.0"
   },
