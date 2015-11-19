@@ -18,7 +18,7 @@ Flux-React-Example is an example contact web application. Serves as a reference 
 * Features a Flexbox layout with some very light usage of Foundation For Apps (The Sass mixins only, no JS, all possible CSS output disabled).
 * Performance Features
   * Majority of visual completeness in < 14k initial download.
-  * 60fps rendering.
+  * ~60fps rendering.
 
 ## Docs
 Additional documentation can be found in this project's [wiki](https://github.com/localnerve/flux-react-example/wiki). This is still in progress.
