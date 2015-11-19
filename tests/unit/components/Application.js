@@ -65,6 +65,27 @@ describe('application component', function () {
     testDom.stop();
   });
 
+  /**
+   * OMG this sux. I'm disappointed in this development. :-(
+   * This became required during the React 0.14 / Fluxible 1.0 update.
+   * This could just mean the app is faster, but harder to test.
+   * This could mean the mocks are now not "mocky" enough. (not fake/deep enough)
+   *
+   * NOTE: if timeout param approaches ~1500, then you have to this.timeout(),
+   * a similar amount in the test. I'm not bumping it automagically in here.
+   * (standard timeout is 2000)
+   *
+   * WHY:
+   * This allows the app to perform async things it expects in a browser
+   * environment (while jsdom is still around) for <timeout> seconds
+   * before declaring the test done and allowing jsdom to be dismantled.
+   *
+   * exists to wrap timeout call in case more hackery required.
+   */
+  function settle (timeout, done) {
+    setTimeout(done, timeout);
+  }
+
   describe('home', function () {
     var appElement, context, homePage;
 
@@ -112,22 +133,26 @@ describe('application component', function () {
       });
     });
 
-    it('should render home content', function () {
+    it('should render home content', function (done) {
       var app = testUtils.renderIntoDocument(appElement);
 
       var components = testUtils.scryRenderedDOMComponentsWithClass(app, 'page-content');
 
       // 'Home' comes from service-data, not the real doc
       expect(components[0].textContent).to.match(/Home/i);
+
+      settle(50, done);
     });
 
-    it('should render home navigation', function () {
+    it('should render home navigation', function (done) {
       var app = testUtils.renderIntoDocument(appElement);
 
       // throws if not exactly 1
       var component = testUtils.findRenderedDOMComponentWithClass(app, 'selected');
 
       expect(component.textContent).to.match(/Home/i);
+
+      settle(50, done);
     });
   });
 });
