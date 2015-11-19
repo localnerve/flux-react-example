@@ -11,8 +11,9 @@ var _nconfig;
  * Generate the webpack assets config
  *
  * @param {Object} self - A reference to the current webpack execution context
+ * @param {String} [statsJson] - A path to a file to collect the build stats.
  */
-function webpackStatsPlugin(self) {
+function webpackStatsPlugin(self, statsJson) {
   self.plugin('done', function(stats) {
     var path = require('path');
     var fs = require('fs');
@@ -38,7 +39,112 @@ function webpackStatsPlugin(self) {
       path.join(__dirname, self.options.custom.assetsJson),
       JSON.stringify(output, null, 4)
     );
+
+    if (statsJson) {
+      fs.writeFileSync(statsJson, JSON.stringify(data));
+    }
   });
+}
+
+/**
+ * Create the webpack uglifyJSPlugin with its options.
+ */
+function createUglifyPlugin () {
+  return new webpack.optimize.UglifyJsPlugin({
+    compress: {
+      warnings: false
+    },
+    output: {
+      comments: false
+    }
+  });
+}
+
+/**
+ * Create the main build config.
+ *
+ * @param {String} type - 'dev', 'prod', or 'perf'.
+ * @returns {Object} A webpack configuration for the main bundle.
+ */
+function mainConfig (type) {
+  var devtoolModuleFilenameTemplate = 'webpack:///main/[resource-path]';
+
+  var config = {
+    resolve: {
+      extensions: ['', '.js', '.jsx']
+    },
+    entry: './client.js',
+    output: {
+      path: '<%= project.dist.scripts %>',
+      publicPath: '<%= project.web.scripts %>/'
+    },
+    module: {
+      loaders: [
+        { test: /\.jsx$/, loader: 'jsx-loader' }
+      ]
+    },
+    node: {
+      setImmediate: false
+    },
+    plugins: [
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.OccurenceOrderPlugin(),
+      // new webpack.NormalModuleReplacementPlugin(/lodash\.assign/, require.resolve('object-assign')),
+      new webpack.NormalModuleReplacementPlugin(/object\-assign/, require.resolve('object-assign')),
+      new webpack.NormalModuleReplacementPlugin(/ReactDOMServer/, require.resolve('./utils/serverStub')),
+      new webpack.NormalModuleReplacementPlugin(/^react\-?$/, require.resolve('react'))
+    ],
+    stats: {
+      colors: true
+    }
+  };
+
+  if (type === 'prod' || type === 'perf') {
+    config.output.filename = '[name].[chunkhash].min.js';
+    config.output.chunkFilename = '[name].[chunkhash].min.js';
+    config.progress = false;
+  } else {
+    // dev only
+    config.output.filename = '[name].js';
+    config.output.chunkFilename = '[name].js';
+    config.keepalive = true;
+    config.watch = true;
+  }
+
+  if (type === 'dev' || type === 'perf') {
+    var definitions = type === 'dev' ? {
+      DEBUG: true
+    } : {
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    };
+    config.output.devtoolModuleFilenameTemplate = devtoolModuleFilenameTemplate;
+    config.devtool = 'source-map';
+    config.plugins = [
+      new webpack.DefinePlugin(definitions)
+    ].concat(config.plugins).concat(
+      function () {
+        return webpackStatsPlugin(this);
+      }
+    );
+  } else {
+    // prod only
+    config.plugins = [
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify('production')
+        }
+      })
+    ].concat(config.plugins).concat(
+      createUglifyPlugin(),
+      function () {
+        return webpackStatsPlugin(this, 'webpack-stats-main.json');
+      }
+    );
+  }
+
+  return config;
 }
 
 /**
@@ -271,7 +377,6 @@ module.exports = function (grunt) {
           path: '<%= project.dist.scripts %>',
           filename: 'header.js'
         },
-        module: {},
         stats: {
           colors: true
         }
@@ -282,7 +387,6 @@ module.exports = function (grunt) {
           path: '<%= project.dist.scripts %>',
           filename: 'header.js'
         },
-        module: {},
         plugins: [
           new webpack.DefinePlugin({
             'process.env': {
@@ -291,144 +395,13 @@ module.exports = function (grunt) {
           }),
           new webpack.optimize.DedupePlugin(),
           new webpack.optimize.OccurenceOrderPlugin(),
-          new webpack.optimize.UglifyJsPlugin({
-            compress: {
-              warnings: false
-            }
-          })
+          createUglifyPlugin()
         ]
       },
-      dev: {
-        resolve: {
-          extensions: ['', '.js', '.jsx']
-        },
-        entry: './client.js',
-        output: {
-          path: '<%= project.dist.scripts %>',
-          publicPath: '<%= project.web.scripts %>',
-          filename: '[name].js',
-          chunkFilename: '[name].js'
-        },
-        module: {
-          loaders: [
-            { test: /\.jsx$/, loader: 'jsx-loader' }
-          ]
-        },
-        node: {
-          setImmediate: false
-        },
-        plugins: [
-          new webpack.DefinePlugin({
-            DEBUG: true
-          }),
-
-          // Optional, use to see the prod module representation in devtools
-          new webpack.optimize.DedupePlugin(),
-          new webpack.optimize.OccurenceOrderPlugin(),
-          // Just one react
-          new webpack.NormalModuleReplacementPlugin(/^react\-?$/, require.resolve('react')),
-          // No react server
-          new webpack.NormalModuleReplacementPlugin(/ReactDOMServer/, require.resolve('./utils/serverStub')),
-          function () {
-            return webpackStatsPlugin(this);
-          }
-        ],
-        stats: {
-          colors: true
-        },
-        devtool: 'source-map',
-        watch: true,
-        keepalive: true
-      },
-      prod: {
-        resolve: {
-          extensions: ['', '.js', '.jsx']
-        },
-        entry: './client.js',
-        output: {
-          path: '<%= project.dist.scripts %>',
-          publicPath: '<%= project.web.scripts %>',
-          filename: '[name].[chunkhash].min.js',
-          chunkFilename: '[name].[chunkhash].min.js'
-        },
-        module: {
-          loaders: [
-            { test: /\.jsx$/, loader: 'jsx-loader' }
-          ]
-        },
-        node: {
-          setImmediate: false
-        },
-        plugins: [
-          new webpack.DefinePlugin({
-            'process.env': {
-              NODE_ENV: JSON.stringify('production')
-            }
-          }),
-          // These are performance optimizations for your bundles
-          new webpack.optimize.DedupePlugin(),
-          new webpack.optimize.OccurenceOrderPlugin(),
-          // Just one react
-          new webpack.NormalModuleReplacementPlugin(/^react\-?$/, require.resolve('react')),
-          // No react server
-          new webpack.NormalModuleReplacementPlugin(/ReactDOMServer/, require.resolve('./utils/serverStub')),
-          new webpack.optimize.UglifyJsPlugin({
-            compress: {
-              warnings: false
-            },
-            output: {
-              comments: false
-            }
-          }),
-
-          // generates webpack assets config to use hashed assets in production mode
-          function () {
-            return webpackStatsPlugin(this);
-          }
-        ],
-        // removes verbosity from builds
-        progress: false
-      },
-      perf: {
-        resolve: {
-          extensions: ['', '.js', '.jsx']
-        },
-        entry: './client.js',
-        output: {
-          path: '<%= project.dist.scripts %>',
-          publicPath: '<%= project.web.scripts %>',
-          filename: '[name].[chunkhash].min.js',
-          chunkFilename: '[name].[chunkhash].min.js'
-        },
-        module: {
-          loaders: [
-            { test: /\.jsx$/, loader: 'jsx-loader' }
-          ]
-        },
-        node: {
-          setImmediate: false
-        },
-        plugins: [
-          new webpack.DefinePlugin({
-            'process.env': {
-              NODE_ENV: JSON.stringify('production')
-            }
-          }),
-          new webpack.optimize.DedupePlugin(),
-          new webpack.optimize.OccurenceOrderPlugin(),
-          // Just one react
-          new webpack.NormalModuleReplacementPlugin(/^react\-?$/, require.resolve('react')),
-          // No react server
-          new webpack.NormalModuleReplacementPlugin(/ReactDOMServer/, require.resolve('./utils/serverStub')),
-          function () {
-            return webpackStatsPlugin(this);
-          }
-        ],
-        devtool: 'source-map',
-        progress: false
-      }
+      dev: mainConfig('dev'),
+      prod: mainConfig('prod'),
+      perf: mainConfig('perf')
     }
-
   });
 
   /**

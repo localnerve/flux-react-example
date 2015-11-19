@@ -102,7 +102,7 @@ Application = connectToStores(
     var routeStore = context.getStore('RouteStore'),
         appStore = context.getStore('ApplicationStore'),
         currentRoute = routeStore.getCurrentRoute(),
-        pageName = (currentRoute && currentRoute.get('page')) ||
+        pageName = (currentRoute && currentRoute.page) ||
           appStore.getDefaultPageName();
 
     return {
