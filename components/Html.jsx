@@ -29,7 +29,9 @@ var Html = React.createClass({
           <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
           <meta httpEquiv="x-dns-prefetch-control" content="on" />
           <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+          <link rel="preconnect" href="//fonts.gstatic.com" />
           <link rel="dns-prefetch" href={this.props.imageServiceHost} />
+          <link rel="preconnect" href={this.props.imageServiceHost} />
           <link rel="apple-touch-icon" sizes="57x57" href={this.props.images + '/apple-touch-icon-57x57.png'} />
           <link rel="apple-touch-icon" sizes="60x60" href={this.props.images + '/apple-touch-icon-60x60.png'} />
           <link rel="apple-touch-icon" sizes="72x72" href={this.props.images + '/apple-touch-icon-72x72.png'} />
@@ -44,9 +46,9 @@ var Html = React.createClass({
           <link rel="icon" type="image/png" href={this.props.images + '/favicon-96x96.png'} sizes="96x96" />
           <link rel="icon" type="image/png" href={this.props.images + '/favicon-16x16.png'} sizes="16x16" />
           <link rel="manifest" href={this.props.images + '/manifest.json'} />
-          <meta name="msapplication-TileColor" content="#00a300" />
-          <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
-          <meta name="theme-color" content="#ffffff" />
+          <meta name="msapplication-TileColor" content="#1B5E20" />
+          <meta name="msapplication-TileImage" content={this.props.images + '/mstile-144x144.png'} />
+          <meta name="theme-color" content="#1B5E20" />
           <style dangerouslySetInnerHTML={{__html: this.props.headerStyles}}></style>
           <script dangerouslySetInnerHTML={{__html: this.props.trackingSnippet}}></script>
         </head>
