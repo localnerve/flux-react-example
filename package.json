@@ -1,6 +1,6 @@
 {
   "name": "flux-react-example",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "An isomorphic flux-react example application",
   "main": "./server",
   "scripts": {
@@ -113,7 +113,7 @@
     "react-addons-css-transition-group": "^0.14.0",
     "react-dom": "^0.14.x",
     "react-spinner": "git://github.com/localnerve/react-spinner",
-    "react-swipe": "git://github.com/localnerve/react-swipe",
+    "react-swipe": "git://github.com/localnerve/react-swipe#rc-3.2.0",
     "remarkable": "^1.6.0",
     "serialize-javascript": "^1.1.2",
     "serve-favicon": "^2.3.0",
