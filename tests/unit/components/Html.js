@@ -30,15 +30,45 @@ describe('html component', function () {
     markup: 'Hello World'
   };
 
+  /**
+   * renderIntoDocument for html element.
+   *
+   * Replaces testUtils.renderIntoDocument.
+   * renderIntoDocument no longer supports React html components as it wraps
+   * everything in a div.
+   * https://github.com/facebook/react/issues/5128
+   *
+   * Must start testDom (jsdom) first.
+   *
+   * @param {ReactElement} el - the html element.
+   * @returns {ReactComponent} The html component.
+   */
+  function renderHtmlIntoDocument (el) {
+    var ReactDOM = require('react-dom');
+    var ReactDOMServer = require('react-dom/server');
+
+    var iframe = global.document.createElement('iframe');
+
+    global.document.body.appendChild(iframe);
+    iframe.src = 'about:blank';
+    iframe.contentWindow.document.open();
+    iframe.contentWindow.document.write(ReactDOMServer.renderToString(el));
+    iframe.contentWindow.document.close();
+    return ReactDOM.render(el, iframe.contentWindow.document);
+  }
+
   beforeEach(function () {
     testProps.context = createMockComponentContext({
       stores: [ApplicationStore, BackgroundStore]
     });
-    htmlComponent = HtmlComponent(testProps);
+    var htmlElement = HtmlComponent(testProps);
 
     // This enables dom render after HtmlComponent factory call.
     // This mimics what really happens.
     testDom.start();
+
+    // Go ahead and renderIntoDocument. Keep reference in htmlComponent.
+    htmlComponent = renderHtmlIntoDocument(htmlElement);
   });
 
   afterEach(function () {
@@ -46,55 +76,51 @@ describe('html component', function () {
     testDom.stop();
   });
 
-  it('this is a sanity check', function () {
+  // Reference ONLY. https://github.com/facebook/react/issues/5128
+  it.skip('this is a general test of the iframe solution', function () {
     var React = require('react');
+    var ReactDOM = require('react-dom');
+
     var klass = React.createClass({
       render: function () {
-        return React.DOM.div(null, React.DOM.span(null, 'hello'));
+        return React.DOM.html(null, React.DOM.body(null, React.DOM.div(null, React.DOM.span(null, 'hello'))));
       }
     });
-    var component = testUtils.renderIntoDocument(
-      React.createElement(klass)
-    );
+
+    var el = React.createElement(klass);
+
+    var iframe = global.document.createElement('iframe');
+
+    // lets see if I even get an iframe.
+    // console.log("iframe = ", iframe);
+    global.document.body.appendChild(iframe);
+    iframe.src = 'about:blank';
+    iframe.contentWindow.document.open();
+    iframe.contentWindow.document.write(React.renderToString(el));
+    iframe.contentWindow.document.close();
+    var component = ReactDOM.render(el, iframe.contentWindow.document);
     var found = testUtils.findRenderedDOMComponentWithTag(component, 'span');
+
     console.log('test = ' + found.textContent);
   });
 
-  it.skip('this will fail', function () {
-    var React = require('react');
-    var klass = React.createClass({
-      render: function () {
-        return React.DOM.html(null, React.DOM.div(null, React.DOM.span(null, 'hello')));
-      }
-    });
-    var component = testUtils.renderIntoDocument(
-      React.createElement(klass)
-    );
-    var found = testUtils.findRenderedDOMComponentWithTag(component, 'span');
-    console.log('test = ' + found.textContent);
-  });
-
-  it.skip('should render a header style', function () {
-    var html = testUtils.renderIntoDocument(htmlComponent);
-    var component = testUtils.findRenderedDOMComponentWithTag(html, 'style');
+  it('should render a header style', function () {
+    var component = testUtils.findRenderedDOMComponentWithTag(htmlComponent, 'style');
     expect(component.textContent).to.equal(testProps.headerStyles);
   });
 
-  it.skip('should render a title', function () {
-    var html = testUtils.renderIntoDocument(htmlComponent);
-    var component = testUtils.findRenderedDOMComponentWithTag(html, 'title');
+  it('should render a title', function () {
+    var component = testUtils.findRenderedDOMComponentWithTag(htmlComponent, 'title');
     expect(component.textContent).to.be.empty;
   });
 
-  it.skip('should render a section', function () {
-    var html = testUtils.renderIntoDocument(htmlComponent);
-    var component = testUtils.findRenderedDOMComponentWithTag(html, 'section');
+  it('should render a section', function () {
+    var component = testUtils.findRenderedDOMComponentWithTag(htmlComponent, 'section');
     expect(component.textContent).to.equal(testProps.markup);
   });
 
-  it.skip('should render multiple scripts', function () {
-    var html = testUtils.renderIntoDocument(htmlComponent);
-    var component = testUtils.scryRenderedDOMComponentsWithTag(html, 'script');
+  it('should render multiple scripts', function () {
+    var component = testUtils.scryRenderedDOMComponentsWithTag(htmlComponent, 'script');
 
     expect(component.length).to.equal(4);
     expect(component[0].textContent).to.equal(testProps.trackingSnippet);
