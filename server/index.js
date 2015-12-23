@@ -28,6 +28,7 @@ var config = require(baseDir + '/configs').create({
 });
 var fluxibleApp = require(baseDir + '/app');
 var main = require('./main');
+var robots = require('./robots');
 
 var data = require(baseDir + '/services/data');
 
@@ -65,6 +66,9 @@ fetchrPlugin.registerService(require(baseDir + '/services/routes'));
 fetchrPlugin.registerService(require(baseDir + '/services/page'));
 fetchrPlugin.registerService(require(baseDir + '/services/contact'));
 app.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
+
+// Handle robots.txt
+app.get('/robots.txt', robots);
 
 // Every other request gets the app bootstrap
 app.use(main(fluxibleApp));

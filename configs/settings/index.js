@@ -1,6 +1,11 @@
 /***
  * Copyright (c) 2015 Alex Grant (@localnerve), LocalNerve LLC
  * Copyrights licensed under the BSD License. See the accompanying LICENSE file for terms.
+ *
+ * Environment Variables Used:
+ *   NODE_ENV
+ *   APP_HOSTNAME
+ *   ASSET_HOST
  */
 'use strict';
 
@@ -92,7 +97,6 @@ var commonFiles = {
   five03: '503.html',
   favicon: path.join(commonDirs.images, 'favicon.ico'),
   robots: 'robots.txt',
-  sitemap: 'sitemap.xml',
   headerScript: path.join(commonDirs.scripts, 'header.js')
 };
 
@@ -169,7 +173,9 @@ function makeConfig (nconf) {
       baseDir: publicbase,
       assetAge: 0,
       assetHost: 'localhost',
-      ssl: false
+      ssl: false,
+      sitemap: '/sitemap.xml',
+      appHostname: nconf.get('APP_HOSTNAME') || 'localhost'
     },
 
     // unmovable project directories
