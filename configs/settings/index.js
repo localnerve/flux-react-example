@@ -96,7 +96,7 @@ var commonFiles = {
   five00: '500.html',
   five03: '503.html',
   favicon: path.join(commonDirs.images, 'favicon.ico'),
-  robots: 'robots.txt',
+  robotsTemplate: 'robots.txt',
   headerScript: path.join(commonDirs.scripts, 'header.js')
 };
 
@@ -175,6 +175,7 @@ function makeConfig (nconf) {
       assetHost: 'localhost',
       ssl: false,
       sitemap: '/sitemap.xml',
+      robots: '/robots.txt',
       appHostname: nconf.get('APP_HOSTNAME') || 'localhost'
     },
 

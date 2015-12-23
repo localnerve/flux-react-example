@@ -33,14 +33,14 @@ var utils = require('./utils');
  * @param {Object} next - The next object.
  */
 function robots (req, res, next) {
-  debug('Read routes and robots template ', settings.dist.robots);
+  debug('Read routes and robots template ', settings.dist.robotsTemplate);
 
   Promise.all([
     utils.nodeCall(serviceData.fetch, {
       resource: config.data.FRED.mainResource
     }),
 
-    utils.nodeCall(fs.readFile, settings.dist.robots, {
+    utils.nodeCall(fs.readFile, settings.dist.robotsTemplate, {
       encoding: 'utf8'
     })
   ])
