@@ -16,9 +16,7 @@ addons:
     packages:
       - g++-4.8
 before_install:
-- echo *****
 - echo DEPLOY_URL=$DEPLOY_URL
-- echo *****
 - sudo apt-get update
 - sudo apt-get install rubygems
 - gem install compass
