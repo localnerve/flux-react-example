@@ -8,7 +8,7 @@ var React = require('react');
 var ContentPage = require('./ContentPage.jsx');
 var Contact = require('./contact');
 var conformErrorStatus = require('../../utils').conformErrorStatus;
-var merge = require('lodash/object/merge');
+var merge = require('lodash/merge');
 
 /***
  * Component to class map

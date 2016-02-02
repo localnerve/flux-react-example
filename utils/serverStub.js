@@ -6,7 +6,7 @@
  */
 'use strict';
 
-var noop = require('lodash/utility/noop');
+var noop = require('lodash/noop');
 
 /**
  * ReactDOMServer dummy.
