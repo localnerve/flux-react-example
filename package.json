@@ -1,6 +1,6 @@
 {
   "name": "flux-react-example",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "description": "An isomorphic flux-react example application",
   "main": "./server",
   "scripts": {
@@ -41,8 +41,7 @@
     "url": "https://github.com/localnerve/flux-react-example/issues"
   },
   "engines": {
-    "node": "~4.2.2",
-    "npm": "~2.14.7"
+    "node": "4.2.4"
   },
   "homepage": "https://github.com/localnerve/flux-react-example",
   "devDependencies": {
