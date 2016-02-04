@@ -3,54 +3,59 @@
  * Copyrights licensed under the BSD License. See the accompanying LICENSE file for terms.
  *
  * TODO: change to use fixture (to be created) with content responses.
+ *   Specifically needed for content: contact.json.
  */
 'use strict';
 
 var routesResponse = require('../fixtures/routes-response');
 var modelsResponse = require('../fixtures/models-response');
 
-var models = modelsResponse;
-
 module.exports = {
+  createContent: function (input) {
+    var content = typeof input === 'string' ? '<h2>'+input+'</h2>'
+      : input;
+
+    return {
+      models: modelsResponse,
+      content: content
+    };
+  },
   fetch: function (params, callback) {
+    var result;
+
     if (params.emulateError) {
-      callback(new Error('mock'));
+      return callback(new Error('mock'));
+    }
+
+    if (params.noData) {
+      return callback();
     }
 
     switch (params.resource) {
       case 'routes':
-        callback(null, {
+        result = callback(null, {
           models: undefined,
           content: JSON.parse(JSON.stringify(routesResponse))
         });
         break;
 
-      case 'business':
-        callback(null, 'business fixture goes here');
+      case 'about':
+        result = callback(null, this.createContent('About'));
         break;
 
-      case 'about':
-        callback(null, {
-          models: models,
-          content: '<h2>About</h2>'
-        });
-        break;
       case 'contact':
-        callback(null, {
-          models: models,
-          content: '<h2>Contact</h2>'
-        });
+        result = callback(null, this.createContent('Contact'));
         break;
+
       case 'home':
-        callback(null, {
-          models: models,
-          content: '<h2>Home</h2>'
-        });
+        result = callback(null, this.createContent('Home'));
         break;
 
       default:
-        throw new Error('service-data test mock recieved unexpected resource request');
+        throw new Error('service-data test mock received unexpected resource request');
     }
+
+    return result;
   },
 
   initialize: function (callback) {
