@@ -1,6 +1,6 @@
 # [Flux-React-Example](https://github.com/localnerve/flux-react-example)
 
-[![Build Status](https://secure.travis-ci.org/localnerve/flux-react-example.png?branch=master)](http://travis-ci.org/localnerve/flux-react-example)
+[![Build Status](https://secure.travis-ci.org/localnerve/flux-react-example.svg?branch=master)](http://travis-ci.org/localnerve/flux-react-example)
 [![Coverage Status](https://coveralls.io/repos/localnerve/flux-react-example/badge.svg?branch=master)](https://coveralls.io/r/localnerve/flux-react-example?branch=master)
 [![Dependency Status](https://david-dm.org/localnerve/flux-react-example.svg)](https://david-dm.org/localnerve/flux-react-example)
 [![devDependency Status](https://david-dm.org/localnerve/flux-react-example/dev-status.svg)](https://david-dm.org/localnerve/flux-react-example#info=devDependencies)
