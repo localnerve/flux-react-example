@@ -36,7 +36,7 @@ This example demonstrates a full CI/CD integration on the master branch. Pushes 
 ## Developer Instructions
 
 ### Build Environment Prerequisites
-1. NodeJS >= 4.1.2
+1. NodeJS ~4.2
   * Globally installed grunt-cli `npm install -g grunt-cli`
 2. Ruby >= 2.1.3p242 (Any version that runs Compass is fine)
   * Globally installed Compass >= 1.0.1 `gem install compass`
