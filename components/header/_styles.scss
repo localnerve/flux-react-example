@@ -14,13 +14,13 @@
 // ribbon styles
 // -------------------------
 .ribbon {
-  margin: 0.5rem 0 0.25rem;
+  margin: 0.25rem 0;
+  padding-top: 0.2rem;
+  overflow-y: hidden;
   @include breakpoint(medium) {
     margin: 1rem 0;
+    padding-top: 0;
   }
-}
-.ribbon .contact, .ribbon .social {
-  overflow-y: hidden;
 }
 .ribbon span {
   font-size: 1.6rem;
@@ -31,7 +31,6 @@
 
 // logo styles
 // -------------------------
-
 .logo {
   @include vertical-block(center, shrink) {
     overflow-y: visible;

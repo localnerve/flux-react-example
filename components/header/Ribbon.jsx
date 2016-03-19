@@ -18,24 +18,20 @@ var Ribbon = React.createClass({
 
     return (
       <div className="grid-row-spaced ribbon">
-        <div className="grid-row-spaced contact">
-          <NavLink className="mail" routeName="contact">
-            <span className="icon-envelop">
-            </span>
-          </NavLink>
-          <a className="phone" href={uriTel}>
-            <span className="icon-phone">
-            </span>
-          </a>
-        </div>
-        <div className="grid-row-spaced social">
-          <a href={this.props.social.twitter}>
-            <span className="icon-twitter"></span>
-          </a>
-          <a href={this.props.social.github}>
-            <span className="icon-github4"></span>
-          </a>
-        </div>
+        <NavLink className="mail" routeName="contact">
+          <span className="icon-envelop">
+          </span>
+        </NavLink>
+        <a className="phone" href={uriTel}>
+          <span className="icon-phone">
+          </span>
+        </a>
+        <a href={this.props.social.twitter}>
+          <span className="icon-twitter"></span>
+        </a>
+        <a href={this.props.social.github}>
+          <span className="icon-github4"></span>
+        </a>
       </div>
     );
   }
