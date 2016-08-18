@@ -1,6 +1,6 @@
 {
   "name": "flux-react-example",
-  "version": "0.12.2",
+  "version": "0.12.3",
   "description": "An isomorphic flux-react example application",
   "main": "./server",
   "scripts": {
@@ -74,7 +74,7 @@
     "jshint": "^2.9.1",
     "jsx-loader": "^0.13.2",
     "matchdep": "^1.0.1",
-    "mocha": "^2.4.5",
+    "mocha": "^3.0.0",
     "mockery": "^1.5.1",
     "nodemon": "^1.9.1",
     "precommit-hook": "^3.0.0",
