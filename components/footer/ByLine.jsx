@@ -20,7 +20,7 @@ var ByLine = React.createClass({
       <div className="grid-row-spaced footer-line by-line">
         <span>
           {byLine}&nbsp;
-          <a href={this.props.author.url} _target="blank">
+          <a href={this.props.author.url} target="_blank">
             {this.props.author.name}
           </a>
           &nbsp;&copy;&nbsp;{(new Date()).getFullYear()}
