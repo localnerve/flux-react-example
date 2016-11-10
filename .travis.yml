@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- '4.2'
+- '6'
 env:
   global:
   - CXX=g++-4.8
@@ -21,7 +21,7 @@ before_install:
 - sudo apt-get install rubygems
 - gem install compass
 before_script:
-- npm install -g grunt-cli
+- npm install -g grunt-cli@0.1.13
 after_success:
 - cat reports/coverage/lcov.info | ./node_modules/.bin/coveralls
 before_deploy:
@@ -38,7 +38,7 @@ deploy:
   skip_cleanup: true
   on:
     repo: localnerve/flux-react-example
-    node: 4.2
+    node: 6
 after_deploy:
 - npm install
 - npm run functest -- $DEPLOY_URL
