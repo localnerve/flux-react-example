@@ -1,6 +1,6 @@
 {
   "name": "flux-react-example",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "description": "An isomorphic flux-react example application",
   "main": "./server",
   "scripts": {
@@ -117,6 +117,6 @@
     "serialize-javascript": "^1.2.0",
     "serve-favicon": "^2.3.0",
     "sitemap-xml": "git://github.com/localnerve/sitemap-xml",
-    "superagent": "^2.0.0"
+    "superagent": "^3.3.1"
   }
 }
