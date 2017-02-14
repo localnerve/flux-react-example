@@ -1,14 +1,16 @@
 # [Flux-React-Example](https://github.com/localnerve/flux-react-example)
 
+![Maintenance](https://img.shields.io/maintenance/yes/2016.svg)
 [![Build Status](https://secure.travis-ci.org/localnerve/flux-react-example.svg?branch=master)](http://travis-ci.org/localnerve/flux-react-example)
 [![Coverage Status](https://coveralls.io/repos/localnerve/flux-react-example/badge.svg?branch=master)](https://coveralls.io/r/localnerve/flux-react-example?branch=master)
+[![Codacy Badge](https://www.codacy.com/project/badge/60366103040442ad9fbf5f8e33373f18)](https://www.codacy.com/public/alex/flux-react-example)
 [![Dependency Status](https://david-dm.org/localnerve/flux-react-example.svg)](https://david-dm.org/localnerve/flux-react-example)
 [![devDependency Status](https://david-dm.org/localnerve/flux-react-example/dev-status.svg)](https://david-dm.org/localnerve/flux-react-example#info=devDependencies)
-[![Codacy Badge](https://www.codacy.com/project/badge/60366103040442ad9fbf5f8e33373f18)](https://www.codacy.com/public/alex/flux-react-example)
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/localnerve.svg)](https://saucelabs.com/u/localnerve)
 
-> A data-driven, isomorphic example application using [Fluxible](http://fluxible.io) and [React](http://reactjs.com).
+> A data-driven, isomorphic example application using [Fluxible](http://fluxible.io) and [React](http://reactjs.com).  
+> A **newer** version of this idea exists at **[react-pwa-reference](https://github.com/localnerve/react-pwa-reference)**
 
 Flux-React-Example is an example contact web application. Serves as a reference app to inspire isomorphic application development solutions.
 
