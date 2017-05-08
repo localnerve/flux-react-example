@@ -1,5 +1,7 @@
 # [Flux-React-Example](https://github.com/localnerve/flux-react-example)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/localnerve/flux-react-example.svg)](https://greenkeeper.io/)
+
 ![Maintenance](https://img.shields.io/maintenance/yes/2016.svg)
 [![Build Status](https://secure.travis-ci.org/localnerve/flux-react-example.svg?branch=master)](http://travis-ci.org/localnerve/flux-react-example)
 [![Coverage Status](https://coveralls.io/repos/localnerve/flux-react-example/badge.svg?branch=master)](https://coveralls.io/r/localnerve/flux-react-example?branch=master)
